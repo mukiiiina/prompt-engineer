@@ -6,20 +6,34 @@
 >
 > 将网址、截图和想法转化为可直接用于 AI 开发的生产级提示词。支持英文、中文和双语输出。
 
+**Compatible with:** Claude Code | OpenClaw | AutoClaw | Any tool using `.claude/skills/` directory
+
+**适用工具：** Claude Code | OpenClaw | AutoClaw | 任何使用 `.claude/skills/` 目录的 AI 编程助手
+
 ---
 
 ## English
 
 ### What is Prompt Engineer?
 
-Prompt Engineer is a **Claude Code skill** that bridges the gap between "I have an idea" and "AI, build this for me." 
+Prompt Engineer is a **Claude Code skill** that bridges the gap between "I have an idea" and "AI, build this for me."
+
+It works with any AI coding assistant that supports the `.claude/skills/` directory format, including:
+- **Claude Code** (official Anthropic CLI)
+- **OpenClaw** (open-source Claude Code alternative)
+- **AutoClaw** (automated Claude Code workflows)
+- Any custom tool using the standard skill discovery mechanism
 
 Instead of spending hours crafting detailed prompts, simply:
 - Paste a website URL
-- Upload a screenshot  
+- Upload a screenshot
 - Describe your project in plain language
 
 ...and get back a **pixel-perfect, implementation-ready prompt** you can feed directly to Claude, GPT-4, Cursor, or any AI coding agent.
+
+### How Skills Work
+
+Skills are modular knowledge packs that Claude Code auto-discovers from your `~/.claude/skills/` directory. When you ask something that matches the skill's trigger phrases, it automatically loads specialized workflows, templates, and examples to handle your request better than generic conversation.
 
 ### Supported Scenarios
 
@@ -88,44 +102,53 @@ Before generating, the skill explicitly asks for your preferred output language:
 
 ### Live Demo: Website Clone
 
-**Input:** `https://linear.app` (developer-tool luxury dark mode)
+**Input:** `https://www.studiodado.com/` (editorial minimalist interior design portfolio)
 
 **Analysis Results:**
-- Colors: #08070B (bg), #F7F8F8 (text), #5E6AD2 (accent), #8A8F98 (secondary)
-- Typography: Inter (display/body), JetBrains Mono (code), 4-tier text hierarchy
-- Animations: 5×5 dot-grid with 3200ms step-timing diagonal wave + 2800ms upDown oscillation
-- Layout: Fixed nav (64px), hero (160px pt), feature grid (3×2), alternating showcases, footer
+- Colors: #FFFFFF (bg), #EEEEEE (sections), #313131 (text), #999999 (muted), #32373C (accent)
+- Typography: Inter (display/body), weight 400, letter-spacing -0.02em, generous line-height
+- Aesthetic: Editorial minimalism, gallery-white, photo-first, "Form Follows Feeling"
+- Layout: Fixed nav (80px), full-bleed hero, centered philosophy, 2-column project grid, journal cards
 
 **Generated Prompt Preview:**
 
 ```markdown
-You are a full-stack engineer specializing in developer-tool luxury aesthetics...
+You are a full-stack development engineer specializing in editorial minimalist aesthetics...
 
 ## 1. Core Visual Style
 ### 1.1 Color System
-- Background: #08070B (deep space black, NOT #000000)
-- Text primary: #F7F8F8, secondary: #8A8F98, tertiary: #5C5F66
-- Accent: #5E6AD2 (indigo CTAs)
-- Style: NO gradients, NO decorative fluff, pure solid colors
+- Background base: #FFFFFF (pure white, letting photography breathe)
+- Secondary background: #EEEEEE (very light gray, subtle section separation)
+- Text primary: #313131 (warm dark gray, NOT pure black)
+- Text secondary: #666666 (medium gray)
+- Text muted: #999999 (light gray, labels)
+- Accent: #32373C (dark charcoal, buttons and CTAs)
+- Style: Editorial minimalism, gallery-white, photo-first. NO bright colors, NO gradients.
 
 ### 1.2 Typography
-- Hero: Inter 500, clamp(3rem, 5vw, 4.5rem), letter-spacing -0.02em
-- Body: Inter 400, 0.9375rem, line-height 1.6
-- Code: JetBrains Mono 400, tabular-nums, "ss01" feature
+- Display/Hero: Inter 400, clamp(2.5rem, 5vw, 4rem), letter-spacing -0.02em
+- Body large: Inter 400, 1.125rem, line-height 1.7
+- Caption/Meta: Inter 400, 0.875rem, color #999999
+- Buttons: Pill-shaped, border-radius 9999px
 
 ### 1.3 Animations
-- Dot-grid "agent": 3200ms step-timing, diagonal wave, opacity 0.3→1.0
-- Dot-grid "upDown": 2800ms step-timing, vertical oscillation
-- Scroll reveals: 600ms, cubic-bezier(0.16, 1, 0.3, 1), stagger 100ms
+- Image reveals: Fade in + translateY(20px to 0), 800ms, cubic-bezier(0.25, 0.1, 0.25, 1)
+- Project card hover: scale(1.03), 400ms ease
+- Scroll reveals: IntersectionObserver, staggered fade-in
 
 ### 1.4 Tech Stack
 - Next.js 14 + TypeScript + Tailwind CSS
-- Framer Motion (reveals) + CSS keyframes (dot loops)
-- Inter + JetBrains Mono fonts
+- Framer Motion (scroll reveals) + CSS transitions (hover states)
+- Inter font
 - Deploy: Vercel
 ```
 
-[Full prompt → `examples/linear-clone.md`](examples/linear-clone.md)
+[Full prompt → `examples/studiodado-clone.md`](examples/studiodado-clone.md)
+
+**Result Website (generated from the prompt above):**
+
+![Studio DADO Clone - Desktop](assets/studiodado-desktop.png)
+*Desktop view — 1280px*
 
 ### Prompt Quality Standards
 
@@ -145,7 +168,7 @@ Every generated prompt guarantees:
 | Example | Scenario | File |
 |---------|----------|------|
 | Midlife Engineering | Website Clone (Industrial Minimalist) | [`examples/midlife-engineering.md`](examples/midlife-engineering.md) |
-| Linear Clone | Website Clone (Developer Luxury Dark) | [`examples/linear-clone.md`](examples/linear-clone.md) |
+| Studio DADO Clone | Website Clone (Editorial Minimalist) | [`examples/studiodado-clone.md`](examples/studiodado-clone.md) |
 | SaaS Dashboard | Full-Stack App (Analytics) | [`examples/saas-dashboard.md`](examples/saas-dashboard.md) |
 | 3D Sneaker Configurator | 3D Interactive (Product Showcase) | [`examples/3d-product-showcase.md`](examples/3d-product-showcase.md) |
 | Fitness Tracker App | Mobile App (React Native) | [`examples/mobile-fitness-app.md`](examples/mobile-fitness-app.md) |
@@ -233,44 +256,53 @@ AI：[生成中英对照的提示词]
 
 ### 实战演示：网站复刻
 
-**输入：** `https://linear.app` (开发者工具奢华深色风格)
+**输入：** `https://www.studiodado.com/` (编辑极简风室内设计作品集)
 
 **分析结果：**
-- 色彩：#08070B（背景）、#F7F8F8（文字）、#5E6AD2（强调色）、#8A8F98（次要文字）
-- 字体：Inter（标题/正文）、JetBrains Mono（代码）、4 级文字层级
-- 动画：5×5 点阵网格，3200ms 步进式对角波浪 + 2800ms 上下振荡
-- 布局：固定导航（64px）、首屏（160px padding）、特性网格（3×2）、交替展示、页脚
+- 色彩：#FFFFFF（背景）、#EEEEEE（区块）、#313131（文字）、#999999（次要）、#32373C（强调）
+- 字体：Inter（标题/正文），字重 400，字间距 -0.02em，宽松行高
+- 风格：编辑极简主义、画廊白底、照片优先、"Form Follows Feeling"
+- 布局：固定导航（80px）、全出血首屏、居中理念区、2 列项目网格、期刊卡片
 
 **生成的 Prompt 预览：**
 
 ```markdown
-你是一位专注于开发者工具奢华美学的前端工程师...
+你是一位专注于编辑极简美学的前端工程师...
 
 ## 一、核心视觉风格
 ### 1. 色彩系统
-- 背景色：#08070B（深空黑，不是 #000000）
-- 文字主色：#F7F8F8，次要：#8A8F98，三级：#5C5F66
-- 强调色：#5E6AD2（靛蓝 CTA）
-- 风格：禁止渐变，禁止装饰性元素，纯纯色块
+- 背景主色：#FFFFFF（纯白，让摄影呼吸）
+- 次要背景：#EEEEEE（极浅灰，区块分隔）
+- 文字主色：#313131（暖深灰，不是纯黑）
+- 文字次要：#666666（中灰）
+- 文字辅助：#999999（浅灰，标签）
+- 强调色：#32373C（深炭灰，按钮）
+- 风格：编辑极简、画廊白底、照片优先。禁止亮色、禁止渐变。
 
 ### 1.2 排版体系
-- 首屏标题：Inter 500, clamp(3rem, 5vw, 4.5rem), 字间距 -0.02em
-- 正文：Inter 400, 0.9375rem, 行高 1.6
-- 代码：JetBrains Mono 400, 等宽数字, "ss01" 字体特性
+- 首屏标题：Inter 400, clamp(2.5rem, 5vw, 4rem), 字间距 -0.02em
+- 大正文：Inter 400, 1.125rem, 行高 1.7
+- 说明文字：Inter 400, 0.875rem, 颜色 #999999
+- 按钮：胶囊形，border-radius 9999px
 
 ### 1.3 动效
-- 点阵 "agent"：3200ms 步进式，对角波浪，透明度 0.3→1.0
-- 点阵 "upDown"：2800ms 步进式，垂直振荡
-- 滚动显现：600ms, cubic-bezier(0.16, 1, 0.3, 1), 子元素错峰 100ms
+- 图片显现：淡入 + translateY(20px to 0)，800ms, cubic-bezier(0.25, 0.1, 0.25, 1)
+- 项目卡片悬停：scale(1.03)，400ms ease
+- 滚动显现：IntersectionObserver，错峰淡入
 
 ### 1.4 技术栈
 - Next.js 14 + TypeScript + Tailwind CSS
-- Framer Motion（显现动效）+ CSS 关键帧（点阵循环）
-- Inter + JetBrains Mono 字体
+- Framer Motion（滚动显现）+ CSS 过渡（悬停状态）
+- Inter 字体
 - 部署：Vercel
 ```
 
-[完整提示词 → `examples/linear-clone.md`](examples/linear-clone.md)
+[完整提示词 → `examples/studiodado-clone.md`](examples/studiodado-clone.md)
+
+**生成的网站效果（基于上方提示词生成）：**
+
+![Studio DADO Clone - Desktop](assets/studiodado-desktop.png)
+*桌面端视图 — 1280px*
 
 ### Prompt 质量标准
 
@@ -290,7 +322,7 @@ AI：[生成中英对照的提示词]
 | 示例 | 场景 | 文件 |
 |------|------|------|
 | Midlife Engineering | 网站复刻（工业极简风） | [`examples/midlife-engineering.md`](examples/midlife-engineering.md) |
-| Linear Clone | 网站复刻（开发者奢华暗黑） | [`examples/linear-clone.md`](examples/linear-clone.md) |
+| Studio DADO Clone | 网站复刻（编辑极简风） | [`examples/studiodado-clone.md`](examples/studiodado-clone.md) |
 | SaaS 仪表盘 | 全栈应用（数据分析） | [`examples/saas-dashboard.md`](examples/saas-dashboard.md) |
 | 3D 球鞋定制器 | 3D 交互（产品展示） | [`examples/3d-product-showcase.md`](examples/3d-product-showcase.md) |
 | 健身追踪 App | 移动应用（React Native） | [`examples/mobile-fitness-app.md`](examples/mobile-fitness-app.md) |
@@ -311,7 +343,7 @@ prompt-engineer/
 │   └── tech-stack-guide.md               # 技术栈选择指南
 └── examples/
     ├── midlife-engineering.md            # 网站复刻：工业极简音乐设备
-    ├── linear-clone.md                   # 网站复刻：开发者工具奢华暗黑
+    ├── studiodado-clone.md               # 网站复刻：编辑极简室内设计
     ├── saas-dashboard.md                 # 全栈应用：数据分析仪表盘
     ├── 3d-product-showcase.md            # 3D 交互：球鞋定制器
     ├── mobile-fitness-app.md             # 移动应用：健身追踪 App
