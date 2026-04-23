@@ -36,14 +36,24 @@ Gather all available context from the user:
 - **Text Description**: Extract functional requirements, user flows, and business logic
 - **References**: Identify style references, competitor sites, or design systems mentioned
 
-### Step 3: Analyze and Structure
+### Step 3: Confirm Output Language
+
+Before generating, explicitly ask the user which language they want the final prompt in:
+
+- **English** — Default for feeding to most AI coding agents (Claude, GPT-4, Cursor)
+- **Chinese (中文)** — For Chinese-speaking AI agents or when the user prefers native language prompts
+- **Bilingual** — Generate both English and Chinese versions side by side
+
+Wait for user confirmation before proceeding to generation.
+
+### Step 4: Analyze and Structure
 
 For each scenario, apply the corresponding analysis framework from `references/`:
 
 - **Website Clone**: Use `references/web-clone-patterns.md` to decompose visual style, layout, interactions, and technical implementation
 - **Full-Stack/Mobile/3D/DataViz**: Use `references/prompt-templates.md` for the base structure and `references/tech-stack-guide.md` for stack recommendations
 
-### Step 4: Generate the Prompt
+### Step 5: Generate the Prompt
 
 Construct the final prompt with the following sections (adapt based on scenario):
 
@@ -58,7 +68,7 @@ Construct the final prompt with the following sections (adapt based on scenario)
 9. **Detailed Specifications**: Exact measurements, timing values, easing functions, breakpoints
 10. **Deliverables**: Code structure, file organization, deployment instructions
 
-### Step 5: Validate and Enhance
+### Step 6: Validate and Enhance
 
 Before delivering the prompt:
 
